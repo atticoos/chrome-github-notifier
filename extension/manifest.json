@@ -4,9 +4,16 @@
   "description": "Github Notifications Client",
   "version": "0.0.1",
   "permissions": [
-    "notifications"
+    "notifications",
+    "<all_urls>"
   ],
   "background": {
-    "scripts": ["notificationFactory.js", "background.js"]
-  }
+    "scripts": [
+      "bower_components/faye/include.js",
+      "bower_components/sprintf/dist/sprintf.min.js",
+      "notificationFactory.js",
+      "background.js"
+    ]
+  },
+  "content_security_policy": "script-src 'self' http://127.0.0.1; object-src 'self';"
 }

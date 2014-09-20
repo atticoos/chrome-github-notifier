@@ -1,0 +1,19 @@
+{
+  "name": "chrome-github-notifier",
+  "version": "0.0.0",
+  "authors": [
+    "Atticus White <contact@atticuswhite.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "faye": "~1.0.1",
+    "sprintf": "~1.0.0"
+  }
+}
