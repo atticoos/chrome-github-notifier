@@ -1,5 +1,5 @@
 angular.module('githubNotifierApp', ['ngRoute'])
-.config(function ($routeProvider) {
+.config(function ($routeProvider, $locationProvider) {
   var routeManifest,
       tokenResolve;
 
@@ -28,6 +28,10 @@ angular.module('githubNotifierApp', ['ngRoute'])
     '/repos': {
       controller: 'ReposCtrl',
       templateUrl: 'views/repos.html'
+    },
+    '/notifications': {
+      controller: 'NotificationsCtrl',
+      templateUrl: 'views/notifications.html'
     }
   };
 

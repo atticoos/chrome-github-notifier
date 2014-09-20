@@ -35,7 +35,6 @@ angular.module('githubNotifierApp')
     getRepositories: function () {
       var deferred = $q.defer();
 
-
       StorageService.get('repos').then(function (repos) {
         if (!angular.isArray(repos) || repos.length === 0) {
           return false;
@@ -61,6 +60,17 @@ angular.module('githubNotifierApp')
       }.bind(this));
 
       return deferred.promise;
+    },
+    getNotifications: function () {
+      return this.getAccessToken().then(function (token) {
+        return $http.get('https://api.github.com/notifications?per_page=100', {
+          headers: {
+            Authorization: 'token ' + token
+          }
+        }).then(function (response) {
+          return response.data
+        });
+      });
     },
     getSubscriptions: function () {
       return StorageService.get('subscriptions').then(function (subs) {

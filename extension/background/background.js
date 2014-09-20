@@ -7,6 +7,13 @@ var GithubService = {};
 
   Faye.URI.isSameOrigin = function () { return true; };
   client.endpoint.path = host;
+  client.on('transport:up', function () {
+    console.log('transport:up');
+  })
+  client.on('transport:down', function () {
+    console.log('transport:down');
+    // attempt fallback retries
+  });
 
   GithubService.subscribe = function (endpoint) {
     if (!subscriptions.hasOwnProperty(endpoint)) {

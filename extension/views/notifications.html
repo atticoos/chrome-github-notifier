@@ -1,0 +1,11 @@
+<h4>Notifications</h4>
+<div class="panel panel-default" ng-repeat="group in notifications">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{group.repository.full_name}}</h3>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="notification in group.notifications">
+      {{notification.subject.title}}
+    </li>
+  </ul>
+</div>

@@ -1,18 +1,31 @@
 angular.module('githubNotifierApp')
 .controller('ReposCtrl', ReposCtrl);
 function ReposCtrl ($scope, $http, $window, GithubService, StorageService) {
-  $scope.repos = [];
+  $scope.repos = {};
+  console.log('repo ctrl');
 
   GithubService.getRepositories().then(function (repos) {
-    $scope.repos = repos;
+    angular.forEach(repos, function (repo) {
+      if (!$scope.repos.hasOwnProperty(repo.owner.id)) {
+        $scope.repos[repo.owner.id] = {
+          owner: repo.owner,
+          repositories: []
+        }
+      }
+      $scope.repos[repo.owner.id].repositories.push(repo);
+    });
+    console.log('repos', $scope.repos);
+
     return GithubService.getSubscriptions();
   }).then(function (subs) {
-    angular.forEach($scope.repos, function (repo) {
-      if (subs.indexOf(repo.id) > -1) {
-        repo.subscribed = true;
-      } else {
-        repo.subscribed = false;
-      }
+    angular.forEach($scope.repos, function (repoGroup) {
+      angular.forEach(repoGroup.repositories, function (repo) {
+        if (subs.indexOf(repo.id) > -1) {
+          repo.subscribed = true;
+        } else {
+          repo.subscribed = false;
+        }
+      })
     });
   });
 
@@ -31,4 +44,13 @@ function ReposCtrl ($scope, $http, $window, GithubService, StorageService) {
       StorageService.set('subscriptions', subs);
     });
   };
+
+  $scope.subCount = function (group) {
+    return group.repositories.reduce(function (prev, current) {
+      if (current.subscribed) {
+        prev++;
+      }
+      return prev;
+    }, 0);
+  }
 }

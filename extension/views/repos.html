@@ -1,6 +1,13 @@
-<ul>
-  <li ng-repeat="repo in repos | orderBy:'full_name'">
-    <input type="checkbox" ng-checked="repo.subscribed" ng-click="sub(repo)"  />
-    {{repo.full_name}}
+<h4>Subscriptions</h4>
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="group in repos | orderBy:'owner.login'">
+    <a ng-click="group.collapsed = !group.collapsed">{{group.owner.login}}/</a>
+    <span class="badge">{{ subCount(group) }} / {{group.repositories.length}}</span>
+    <ul ng-show="group.collapsed">
+      <li ng-repeat="repo in group.repositories | orderBy:'full_name'">
+        <input type="checkbox" ng-checked="repo.subscribed" ng-click="sub(repo)"  />
+        {{repo.full_name}}
+      </li>
+    </ul>
   </li>
 </ul>

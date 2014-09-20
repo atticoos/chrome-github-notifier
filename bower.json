@@ -18,6 +18,7 @@
     "angular": "~1.2.25",
     "angular-route": "~1.2.25",
     "q": "1.0.1",
-    "reqwest": "~1.1.2"
+    "reqwest": "~1.1.2",
+    "bootstrap": "~3.2.0"
   }
 }
