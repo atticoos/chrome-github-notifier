@@ -1,12 +1,12 @@
 var GithubService = {};
 
 (function () {
-  var host = "http://127.0.0.1:4567/faye",
+  var host = "https://2a13aef.ngrok.com/faye",
       client = new Faye.Client(host),
       subscriptions = {};
 
-  Faye.URI.isSameOrigin = function () { return true; };
-  client.endpoint.path = host;
+  //Faye.URI.isSameOrigin = function () { return true; };
+  //client.endpoint.path = host;
   client.on('transport:up', function () {
     console.log('transport:up');
   })
