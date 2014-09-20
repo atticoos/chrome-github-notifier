@@ -31,7 +31,10 @@ function ReposCtrl ($scope, $http, $window, GithubService, StorageService) {
 
   $scope.sub = function (repo) {
     var index;
-    GithubService.getSubscriptions().then(function (subs) {
+    GithubService.getSubscriptions().finally(function (subs) {
+      if (!subs) {
+        subs = [];
+      }
       if (repo.subscribed) {
         if ((index = subs.indexOf(repo.id)) > -1){
           subs.splice(index, 1);
