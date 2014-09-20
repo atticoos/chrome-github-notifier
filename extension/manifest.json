@@ -1,0 +1,12 @@
+{
+  "manifest_version": 2,
+  "name": "Github Notifier",
+  "description": "Github Notifications Client",
+  "version": "0.0.1",
+  "permissions": [
+    "notifications"
+  ],
+  "background": {
+    "scripts": ["notificationFactory.js", "background.js"]
+  }
+}
