@@ -14,6 +14,10 @@
   ],
   "dependencies": {
     "faye": "~1.0.1",
-    "sprintf": "~1.0.0"
+    "sprintf": "~1.0.0",
+    "angular": "~1.2.25",
+    "angular-route": "~1.2.25",
+    "q": "1.0.1",
+    "reqwest": "~1.1.2"
   }
 }

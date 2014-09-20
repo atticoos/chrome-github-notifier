@@ -1,0 +1,45 @@
+<!doctype html>
+<html ng-app="githubNotifierApp" ng-csp>
+  <head>
+    <title>Getting Started</title>
+    <link rel="stylesheet" type="text/css" href="/bower_components/angular/angular-csp.css" />
+     <style>
+      body {
+        min-width: 357px;
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        padding-top: 50px;
+      }
+
+      header {
+        background-color: #32383E;
+        padding: 10px;
+        color:#fff;
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+      }
+      header h2 {
+        color: #fff;
+        margin: 0;
+      }
+    </style>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/app.js"></script>
+    <script src="/controllers/index.js"></script>
+    <script src="/controllers/login.js"></script>
+    <script src="/controllers/repos.js"></script>
+
+    <script src="/services/github.js"></script>
+    <script src="/services/storage.js"></script>
+  </head>
+  <body>
+    <header>
+      <h2>Github Notifier</h2>
+    </header>
+    <div ng-view></div>
+  </body>
+</html>

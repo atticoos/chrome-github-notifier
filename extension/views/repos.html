@@ -1,0 +1,6 @@
+<ul>
+  <li ng-repeat="repo in repos | orderBy:'full_name'">
+    <input type="checkbox" ng-checked="repo.subscribed" ng-click="sub(repo)"  />
+    {{repo.full_name}}
+  </li>
+</ul>

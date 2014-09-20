@@ -5,14 +5,22 @@
   "version": "0.0.1",
   "permissions": [
     "notifications",
+    "storage",
+    "tabs",
     "<all_urls>"
   ],
+  "browser_action": {
+    "default_icon": "github.png",
+    "default_popup": "index.html"
+  },
   "background": {
     "scripts": [
+      "bower_components/reqwest/reqwest.js",
+      "bower_components/q/q.js",
       "bower_components/faye/include.js",
       "bower_components/sprintf/dist/sprintf.min.js",
-      "notificationFactory.js",
-      "background.js"
+      "background/notificationFactory.js",
+      "background/background.js"
     ]
   },
   "content_security_policy": "script-src 'self' http://127.0.0.1; object-src 'self';"

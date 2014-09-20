@@ -19,9 +19,19 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // handle webhooks
 router.route('/payload').post(function (req, res) {
-  console.log('received', req.body, req.params);
-  bayeux.getClient().publish('/test', req.body);
+  var data = {
+    event: req.headers['x-github-event'],
+    payload: JSON.parse(req.body.payload)
+  };
+  console.log('Webhook ', data.event, data.payload.action);
+  bayeux.getClient().publish('/' + data.payload.repository.id, data);
   res.status(200).json({message: 'received'});
+});
+
+router.route('/github/oauth').get(function (req, res) {
+  console.log('req', req.params);
+  console.log('query', req.query);
+  res.json();
 });
 
 app.use('/', router);
