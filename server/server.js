@@ -3,6 +3,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     http = require('http'),
     faye = require('faye'),
+    subscriptionValidator = require('./subscriptionValidator'),
     port = 4567;
 
 
@@ -37,10 +38,7 @@ GithubNotifierServer.prototype.setupHttpServer = function () {
   }.bind(this));
   this.app.use('/', this.router);
   this.httpServer = http.createServer(this.app);
-
 };
-
-
 
 GithubNotifierServer.prototype.setupFayeServer = function () {
   this.fayeServer = new faye.NodeAdapter({
@@ -50,9 +48,14 @@ GithubNotifierServer.prototype.setupFayeServer = function () {
   this.fayeServer.addExtension({
     incoming: function (message, callback) {
       if (message.subscription) {
-        console.log('INCOMING SUB', message.subscription);
+        subscriptionValidator.validate(message.token, message.subscription).catch(function () {
+          message.error = 'Unauthorized Request';
+        }).finally(function () {
+          callback(message);
+        });
+      } else {
+        callback(message);
       }
-      callback(message);
     }
   });
   this.fayeServer.attach(this.httpServer);

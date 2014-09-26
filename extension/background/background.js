@@ -1,9 +1,10 @@
 var GithubService = {};
 
 (function () {
-  var host = "https://2a13aef.ngrok.com/faye",
+  var host = "https://4d9ee211.ngrok.com/faye",
       client = new Faye.Client(host),
-      subscriptions = {};
+      subscriptions = {},
+      githubToken;
 
   //Faye.URI.isSameOrigin = function () { return true; };
   //client.endpoint.path = host;
@@ -13,6 +14,19 @@ var GithubService = {};
   client.on('transport:down', function () {
     console.log('transport:down');
     // attempt fallback retries
+  });
+
+  client.addExtension({
+    outgoing: function (message, callback) {
+      message.token = githubToken;
+      callback(message);
+    }
+  });
+
+  chrome.storage.local.get('token', function (token) {
+    if (token && token.token) {
+      githubToken = token.token;
+    }
   });
 
   GithubService.subscribe = function (endpoint) {
@@ -35,7 +49,7 @@ var GithubService = {};
 
   GithubService.listenForTokenCode = function () {
     var deferred = Q.defer(),
-        githubConnectUrl = 'http://2a13aef.ngrok.com/github/oauth',
+        githubConnectUrl = 'http://4d9ee211.ngrok.com/github/oauth',
         listener;
     listener = function () {
       chrome.tabs.getAllInWindow(null, function (tabs) {

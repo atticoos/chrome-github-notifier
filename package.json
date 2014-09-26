@@ -9,8 +9,10 @@
   "author": "Atticus White <contact@atticuswhite.com> (http://atticuswhite.com/)",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^2.3.2",
     "body-parser": "^1.8.2",
-    "express": "^4.9.3"
+    "express": "^4.9.3",
+    "request": "^2.44.0"
   },
   "devDependencies": {
     "gulp": "^3.8.8",
